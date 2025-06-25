@@ -50,15 +50,15 @@
         content: |
           {
             "type": "service_account",
-            "project_id": "speak-ukrainian-362008",
-            "private_key_id": "dummy-key-id",
-            "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCLF3l+rUwf1STb\nISicYDMQL4RwIc49ghH5UuN065IJwYbw8jF2VDZCa+dKiRDK7igKJwRtlxtd08zi\nCbX/anLTGPimSjOJPcV0h+1g1xrmrjQEDjq7PU6QNbGSMJW/DMk3joHh2iX1B6ph\ns0k9zltDQSmBmviY+fw2VtnovU2aMxvkdHX/n0t+AJcAkjRIL1E+lk5fE1+TNqbJ\nMCpDMQWbNi+9WOurnCs6S6LzF/T0UThhwHCvIU7Uvj9R7/h6L+Yo5JsvWBfqJdv9\nKagulG9fK8ufTAa2aKA4TOFA2P10/xFfHGf2laGsnkvyYMa9m6sRBwQb9r6Wg5Xr\nyxdFhbQlAgMBAAECggEAAkn4G2ARtSJmUV7Z0rz4iicmCExeHwABeLdm+9kWlaeE\nJ3ns23QmUnCBJWZdCuHhcc1TktQeRKyEHiInxxTC3/t0uBPXhkYodjL4cpQHos0y\nGPD9AXDQVqozimLXTAYTV6E2PPfAkSg3oxT2uxgmw1QSsUnSFn5iqqhCPMTEvqlb\ncalryfR/DKmhnlKBLVjwlycnvZMTbi4E0hmsUYWd4bsnS4xAnSE99+2c0JTJa28I\na/INptaah64FsuqhlZkJRVHuN9AhfCM6FVRbbwg16oRqakU+FhI9lhf3Fj3ibtdg\nfqD9PxhBrRfAoU6aFUMgXUuWn82hLzpeuY6HFNZf8QKBgQC+Le9VIr0yTvXJwQgJ\nb/z0iJsv+FUT594y0P4I1f4I9wcIpkLWTQrY5/14L8zNX0Tn0U93o8vgX2dpTuub\npRfYo3xXB1+VKHvIltmlcM4h2Gw7Ae2HXV8tvkkbWc6gLWZekRj56+Ytxp16ruB2\nmIYPRqJ9xId0ZjEXIGp9KX1x6QKBgQC7Ox8SiBNZ1BZ8FG2u+WZ6mNherFXaYnxp\n+MprrRDyluIe+M+MFKmCd28adQ6gOxjt8Ye8qQDXbQTaxg3bacaMbYEP4K2NBKuQ\n9AjbXWA1/ODP8oveVrRQVc3ZFIDE1i4o5K+M4SU9sifPtOhORzcqd3G3vVLPB3tz\nxjbK656u3QKBgGqWnivuI3Hd1V31ZUa80F5RbgDtwuk8LEn43lgfb5igsv2DCbTI\nS0sUgvhoefWk7p6qrkpUsECZ2ACqrdx3JC1UO60fQc/8d5wOB//0gGNxw/8ybmlO\nyLh/jMPairc1mslns0LnlwOS7NJEzyNJCuHm6c1pZ62yVNMsZOKvbVJ5AoGAL4KD\nEfrBnku5IOc2Je5XWMisLungJzhShbmB8+zIniY3XtCYKd2cXeTcpoQJoBMe8lIV\ntYPVGNUrJDCZl5GxtjSbSWIj5+LFflTOYovBPDHdAidz4olx2+jKAUm4mzoWIH5X\nJZKEFrG8dHJdeG+NyhLhIlTCTJKDew9THA7KB2kCgYEAjXITcPn0yst87x8NUEmB\ntLNkgrehC8XvayvZ/VcJkxAcpfLlx5BeKXFSQ58Vqr3gfM+dqsPn1K+dwC1KhGSr\naorCd0mfeM91as72hQ0RKJsOaCH5BpgX0ogr1GKqL/cSVwmvPbcNBD6fwB4gGxR7\nTdu065ULlyiXwQ1kyeoUodw=\n-----END PRIVATE KEY-----\n",
-            "client_email": "speak-ukrainian@speak-ukrainian-362008.iam.gserviceaccount.com",
-            "client_id": "dummy-client-id",
+            "project_id": "{{ lookup('env', 'GOOGLE_CLOUD_PROJECT') | default('YOUR_PROJECT_ID') }}",
+            "private_key_id": "{{ lookup('env', 'GOOGLE_PRIVATE_KEY_ID') | default('YOUR_PRIVATE_KEY_ID') }}",
+            "private_key": "{{ lookup('env', 'SERVICE_ACCOUNT_PRIVATE_KEY') | default('YOUR_PRIVATE_KEY_HERE') }}",
+            "client_email": "{{ lookup('env', 'SERVICE_ACCOUNT_CLIENT_EMAIL') | default('YOUR_SERVICE_ACCOUNT_EMAIL') }}",
+            "client_id": "{{ lookup('env', 'GOOGLE_CLIENT_ID') | default('YOUR_CLIENT_ID') }}",
             "auth_uri": "https://accounts.google.com/o/oauth2/auth",
             "token_uri": "https://oauth2.googleapis.com/token",
             "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
-            "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/speak-ukrainian%40speak-ukrainian-362008.iam.gserviceaccount.com"
+            "client_x509_cert_url": "{{ lookup('env', 'GOOGLE_CERT_URL') | default('YOUR_CERT_URL') }}"
           }
         dest: "{{ backend_dest }}/google-service-account.json"
         mode: '0600'
@@ -91,15 +91,15 @@
           # Database configuration
           Environment=DEV2_DATASOURCE_URL=jdbc:postgresql://34.173.19.35:5432/teachua
           Environment=DEV2_DATASOURCE_USER=teachua_user
-          Environment=DEV2_DATASOURCE_PASSWORD=securepassword123
+          Environment=DEV2_DATASOURCE_PASSWORD=${DEV2_DATASOURCE_PASSWORD:-YOUR_DB_PASSWORD_HERE}
           
           # JWT configuration
-          Environment=JWT_ACCESS_SECRET_KEY=4A404D635166546A576E5A7234753778214125442A472D4B6150645267556B58703273357638792F423F4528482B4D6251655468566D597133743677397A2443
-          Environment=JWT_REFRESH_SECRET_KEY=482B4D6251655468566D597133743677397A24432646294A404E635266556A586E5A7234753778214125442A472D4B6150645367566B59703373357638792F42
+          Environment=JWT_ACCESS_SECRET_KEY=${JWT_ACCESS_SECRET_KEY:-YOUR_JWT_ACCESS_SECRET_KEY_HERE}
+          Environment=JWT_REFRESH_SECRET_KEY=${JWT_REFRESH_SECRET_KEY:-YOUR_JWT_REFRESH_SECRET_KEY_HERE}
           
           # Mail configuration
-          Environment=USER_EMAIL=speak.ukrainian.org.ua@gmail.com
-          Environment=SEND_PASSWORD=jtaenojlprbiftra
+          Environment=USER_EMAIL=${USER_EMAIL:-YOUR_EMAIL_HERE}
+          Environment=SEND_PASSWORD=${SEND_PASSWORD:-YOUR_SEND_PASSWORD_HERE}
           
           # OAuth2 configuration (from setenv.sh)
           Environment=OAUTH2_GOOGLE_CLIENT_ID=${OAUTH2_GOOGLE_CLIENT_ID:-YOUR_GOOGLE_CLIENT_ID_HERE}
@@ -109,7 +109,7 @@
           
           # Google Service Account configuration
           Environment=GOOGLE_APPLICATION_CREDENTIALS={{ backend_dest }}/google-service-account.json
-          Environment=SERVICE_ACCOUNT_CLIENT_EMAIL=speak-ukrainian@speak-ukrainian-362008.iam.gserviceaccount.com
+          Environment=SERVICE_ACCOUNT_CLIENT_EMAIL=${SERVICE_ACCOUNT_CLIENT_EMAIL:-YOUR_SERVICE_ACCOUNT_EMAIL}
           
           # Production configuration
           Environment=PROD_BASE_URL={{ backend_url }}
